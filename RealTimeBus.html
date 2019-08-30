@@ -1,0 +1,98 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <title>BusAPI</title>
+
+</head>
+
+<body>
+    <div class="container text-center mt-3">
+        <h2>苗栗公車即時時刻表</h2>
+
+        <div id="block">
+
+
+            <div v-for="bus in buses" class="list row d-flex text-center mt-3">
+
+                <table rules="all" cellpadding='5' class="text-center">
+                    <tr>
+                        <th>•車牌號碼</th>
+                        <th>•車速</th>
+                        <th>•路線名稱</th>
+                        <th>•本平台資料更新時間</th>
+                        <th>•勤務狀態</th>
+                    </tr>
+                    <tr>
+                        <td class="plateNumb">{{bus.PlateNumb}}</td>
+                        <td>{{bus.Speed}}</td>
+                        <td>{{bus.RouteName}}</td>
+                        <td>{{bus.UpdateTime}}</td>
+                        <td v-if="bus.DutyStatus==0">正常</td>
+                        <td v-else-if="bus.DutyStatus==1">開始</td>
+                        <td v-else="bus.DutyStatus==2">結束</td>
+                    </tr>
+                </table>
+                
+            </div>
+           
+        </div>
+
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+        function UpdateBus() {
+            $.ajax({
+                url: "http://demo9064508.mockable.io/getdata",
+                type: "get",
+                dataType: "json",
+                crossDomain: true,
+                success: function (buses) {
+                    if(buses==null){
+                        
+                        return '目前沒有公車行駛'
+                    }
+                    else{
+                    var json = { buses };
+                    new Vue(
+                        {
+                            el: '#block',
+                            data: json
+                        }
+                    );
+
+                }},
+                error: function (buses) {
+                    
+                    /* console.log(response)
+                     alert('failed!');*/
+                }
+            })
+        }
+        setInterval(UpdateBus, 5000);   
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+$main-text:Microsoft JhengHei;
+
+body
+ {
+    background-color: rgba(163, 193, 233, 0.589);
+    font-family: $main-text;
+    
+   }     
+
+
+.list {
+        table{
+                border-collapse: collapse;
+                width:100%;
+                border:3px rgb(248, 150, 46) solid;
+                padding:5px;
+
+                th{
+                        color: rgba(34, 34, 248, 0.815);
+
+                }
+        }
+}
+
+.plateNumb {
+        width: 200px;
+}

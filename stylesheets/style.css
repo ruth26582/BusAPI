@@ -1,0 +1,20 @@
+body {
+  background-color: rgba(163, 193, 233, 0.589);
+  font-family: Microsoft JhengHei;
+}
+
+.list table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 3px #f8962e solid;
+  padding: 5px;
+}
+
+.list table th {
+  color: rgba(34, 34, 248, 0.815);
+}
+
+.plateNumb {
+  width: 200px;
+}
+/*# sourceMappingURL=style.css.map */
